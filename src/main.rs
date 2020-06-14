@@ -52,3 +52,21 @@ fn main() {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::make_secret_number_in_range;
+
+    #[test]
+    fn check_upper_lower_bounds() {
+        let min = 1;
+        let max = 2;
+
+        for _ in 0..10 // Testing randomness is fun...
+        {
+            let n = make_secret_number_in_range(min, max);
+            assert!(n >= min, "{} was below the min bound {}", n, min);
+            assert!(n <= max, "{} was above the max bound {}", n, max);
+        }
+    }
+}
