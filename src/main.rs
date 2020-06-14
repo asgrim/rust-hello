@@ -2,10 +2,26 @@ use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
 
-fn main() {
-    println!("Guess the number!");
+const MIN_NUMBER_INCLUSIVE: u32 = 1;
+const MAX_NUMBER_INCLUSIVE: u32 = 10;
 
-    let secret_number = rand::thread_rng().gen_range(1, 101);
+/// Generate a random number between `low_inclusive` and `high_inclusive`. Because that makes more
+/// sense than `gen_range` which is `low_inclusive` and `high_exclusive` ¯\_(ツ)_/¯
+///
+/// # Example
+///
+/// ```
+/// let secret_number = make_secret_number();
+/// println("Number is {}", secret_number);
+/// ```
+fn make_secret_number_in_range(low_inclusive: u32, high_inclusive: u32) -> u32 {
+    return rand::thread_rng().gen_range(low_inclusive, high_inclusive + 1);
+}
+
+fn main() {
+    println!("Guess the number, between {} and {}!", MIN_NUMBER_INCLUSIVE, MAX_NUMBER_INCLUSIVE);
+
+    let secret_number = make_secret_number_in_range(MIN_NUMBER_INCLUSIVE, MAX_NUMBER_INCLUSIVE);
 
     loop {
         println!("Input guess: ");
