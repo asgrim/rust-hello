@@ -1,5 +1,7 @@
-mod game;
+// mod game;
+mod ownership;
 
 fn main() {
-    game::run();
+    // game::run();
+    ownership::run();
 }
