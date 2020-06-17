@@ -1,5 +1,4 @@
-pub fn run()
-{
+pub fn run() {
     // Will fail, block scopes apply
     // {
     //     let s = "hello";
@@ -19,7 +18,16 @@ pub fn run()
     // this is a mutable reference ("mutable borrow"); appears to work in same way as PHP's pass by ref
     append_world_with_mutable_reference(&mut s2);
 
-    println!("{} (len: {}) ... {}", s1, l, s2);
+    // Cannot have multiple mutable references; only multiple immutable refs
+    // let r1 = &mut s1;
+    // let r2 = &mut s1;
+    let r1 = &s1;
+    let r2 = &s1;
+    println!("r1={}\nr2={}", r1, r2);
+
+    let fw = first_word(&s1);
+
+    println!("s1={} (l={})\ns2={}\nfw={}", s1, l, s2, fw);
 }
 
 fn worldify(mut s: String) -> String {
@@ -39,4 +47,17 @@ fn strlen(s: &String) -> usize {
 
 fn append_world_with_mutable_reference(s: &mut String) {
     s.push_str(" WORLD");
+}
+
+// Demonstrates "slices", can slice strings, arrays
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    return &s[..];
 }
