@@ -1,9 +1,11 @@
+mod enums;
 // mod game;
 // mod ownership;
-mod structs;
+// mod structs;
 
 fn main() {
     // game::run();
     // ownership::run();
-    structs::run();
+    // structs::run();
+    enums::run();
 }
